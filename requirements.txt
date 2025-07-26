@@ -3,3 +3,4 @@ openai
 langchain
 langchain-community
 faiss-cpu
+langchain_openai
