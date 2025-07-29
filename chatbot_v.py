@@ -181,7 +181,7 @@ if ask_btn and query.strip():
         # After 5 questions, center the meme image and show a thank you message
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
-            st.image("/Users/berardinobarile/Documents/Website/chatbot/meme_me.jpg", width=300, caption="")
+            st.image("assets/meme_me.jpg", width=300, caption="")
         st.markdown(
             "<p style='text-align: center; font-size: 16px;'>Thank you for your interest in my CV. Since you've asked over 5 questions, "
             "to limit the number of requests, I invite you to contact me directly.</p>",
