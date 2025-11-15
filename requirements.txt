@@ -1,7 +1,7 @@
 streamlit
-openai
 langchain
 langchain-community
-faiss-cpu
-langchain_openai
+langchain-openai
 langchain-text-splitters
+langchain-classic
+faiss-cpu
