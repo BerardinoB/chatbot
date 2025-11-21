@@ -82,19 +82,16 @@ with st.sidebar:
 st.markdown("<h1 style='text-align: center;'>💼 Ask Me About My Work Experience</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>This chatbot is trained on my personal experience. Ask me anything!</p>", unsafe_allow_html=True)
 
+@st.cache_resource(show_spinner="Loading knowledge base...")
 def build_vectorstore():
-    """Load context, split, embed, and create a FAISS vector store."""
-    if not os.environ.get("OPENAI_API_KEY"):
-        st.error("OpenAI API key is not set. Please add it to your Streamlit secrets or environment variables.")
-        st.stop()
-
-    loader = TextLoader("berardino_context.txt", encoding="utf-8")
-    docs = loader.load()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-    chunks = splitter.split_documents(docs)
-
-    embeddings = OpenAIEmbeddings()
-    vectorstore = FAISS.from_documents(chunks, embeddings)
+    # Load the same embedding model used when saving the index
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    
+    vectorstore = FAISS.load_local(
+        "faiss_index",
+        embeddings,
+        allow_dangerous_deserialization=True
+    )
     return vectorstore
 
 def make_qa_chain(vectorstore: FAISS):
